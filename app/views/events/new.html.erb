@@ -1,0 +1,31 @@
+<% if params[:action] == 'edit' %>
+  <% title = 'Edit Event' %>
+<% else %>
+  <% title = 'New Event' %>
+<% end %>
+
+<% content_for :title do %>
+  <%= title %>
+<% end %>
+
+<h1><%= title %></h1>
+<hr/>
+
+<%= bootstrap_form_for(@event) do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :via %>
+  <%= f.date_field :date %>
+  <%= f.time_field :from %>
+  <%= f.time_field :to %>
+  <%= f.text_field :venue %>
+  <%= f.text_field :contact %>
+  <%= f.text_area :desc %>
+  <%= f.number_field :capacity %>
+  <%= f.number_field :price, prepend: "$" %>
+    
+  <% if params[:action] == 'edit' %>
+    <%= f.submit "Update", class: 'btn btn-primary' %>
+  <% else %>
+    <%= f.submit "Create", class: 'btn btn-primary' %>
+  <% end %>
+<% end %>

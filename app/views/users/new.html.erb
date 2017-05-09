@@ -1,0 +1,35 @@
+<% if params[:action] == 'edit' %>
+  <% title = 'Settings' %>
+<% else %>
+  <% title = 'Join in EventsBooking' %>
+<% end %>
+
+<% content_for :title do %>
+  <%= title %>
+<% end %>
+
+<%= bootstrap_form_for(@user, url: signup_path) do |f| %>
+  <fieldset>
+    <div id="legend">
+      <legend class=""><%= title %></legend>
+    </div>
+    <%= f.email_field :email %>
+    <%= f.password_field :password %>
+    <%= f.password_field :password_confirmation, label: "Confirm Password" %>
+
+    <%= f.select :title, ["Mr.", "Ms.", "Mrs.", "Dr.", "Prof."] %>
+
+    <%= f.text_field :first_name, label: "First Name" %>
+    <%= f.text_field :last_name, label: "Last Name" %>
+
+    <%= f.select :gender, ["Male", "Female"] %>
+
+    <%= f.select :status, ["Student", "Staff"] %>
+
+    <% if params[:action] == 'edit' %>
+      <%= f.submit "Update profile", class: 'btn btn-primary' %>
+    <% else %>
+      <%= f.submit "Create an account", class: 'btn btn-primary' %>
+    <% end %>
+  </fieldset>
+<% end %>

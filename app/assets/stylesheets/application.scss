@@ -1,0 +1,49 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "rails_bootstrap_forms";
+
+.main-body {
+  padding-top: 70px;
+}
+
+.text-gray {
+  color: rgb(88, 96, 105);
+}
+
+textarea.form-control {
+  height: 100px;
+}
+
+.footer {
+  background-color: #1b1b1b;
+  background-image: -moz-linear-gradient(top, #222222, #111111);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#222222), to(#111111));
+  background-image: -webkit-linear-gradient(top, #222222, #111111);
+  background-image: -o-linear-gradient(top, #222222, #111111);
+  background-image: linear-gradient(to bottom, #222222, #111111);
+  background-repeat: repeat-x;
+  border-color: #252525;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff222222', endColorstr='#ff111111', GradientType=0);
+}
+
+.signed-in-as {
+  padding: 6px 20px 0px 20px;
+}
+
+.signed-in-name {
+  padding: 0px 20px 3px 20px;
+}

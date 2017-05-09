@@ -1,0 +1,70 @@
+<% content_for :title do %>
+  <%= @event.name %>
+<% end %>
+
+<% if flash[:error] %>
+  <p style="color:#ff0000"><%= flash[:error] %></p>
+<% end %>
+<h1><%= @event.name %></h1>
+<p class="lead">via <%= @event.via %></p>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="pull-left">
+      <% b = @event.get_book(current_user) %>
+      <% if b %>
+        <%= link_to "Cancel Book" + @event.book_status, event_book_path(@event.id, b.id), method: 'delete', class: "btn btn-warning btn-lg" %>
+      <% else %>
+        <%= link_to "Book" + @event.book_status, event_books_path(@event.id), method: 'post', class: "btn btn-success btn-lg" %>
+      <% end %>
+    </div>
+    <div class="pull-right">
+      <% if own_event(@event) %>
+        <%= link_to "Edit", edit_event_path(@event.id), class: "btn btn-lg btn-info" %>
+        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target=<%= "#del_confirm_" + @event.id.to_s %>>
+          Delete
+        </button>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id=<%= "del_confirm_" + @event.id.to_s %> tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Are you ABSOLUTELY sure?</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-warning" role="alert">
+          <strong>Warning!</strong>
+          Irretrievable deletion will happen if you do this!
+        </div>
+        Are you sure to delete <strong><%= @event.name %></strong> forever?
+        All bookings will be canceled together.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= link_to "Delete", event_path(@event.id), method: 'delete', class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>
+<hr/>
+
+<h3>Description:</h3>
+<p style="font-size:14px;margin:0px;"><%= @event.desc %></p>
+
+<h3>When:</h3>
+<p style="font-size:14px;margin:0px;"><%= @event.date.strftime('%a %d %b %Y') %>, <%= @event.from.strftime("%I:%M %p") %> - <%= @event.to.strftime("%I:%M %p") %></p>
+
+<h3>Venue:</h3>
+<p style="font-size:14px;margin:0px;"><%= @event.venue %></p>
+
+<h3>Contact Details:</h3>
+<p style="font-size:14px;margin:0px;"><%= @event.contact %></p>
+
+<h3>Cost:</h3>
+<p style="font-size:14px;margin:0px;"><%= @event.show_price %></p>
+
+<br/>

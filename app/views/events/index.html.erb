@@ -1,0 +1,67 @@
+ <% if params[:action] == 'owned' %>
+  <% title = 'Launched Events' %>
+<% elsif params[:action] == 'booked' %>
+  <% title = 'Booked Events' %>
+<% else %>
+  <% title = 'All Events' %>
+<% end %>
+
+<% content_for :title do %>
+  <%= title %>
+<% end %>
+
+<h1><%= title %></h1>
+<hr/>
+
+<% @events.each do |event| %>
+  <div class="jumbotron">
+    <a href=<%= event_path(event) %>>
+      <h2><%= event.name %></h2>
+      <p class="lead">via <%= event.via %></p>
+    </a>
+    <br/>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="pull-left">
+          <% b = event.get_book(current_user) %>
+          <% if b %>
+            <%= link_to "Cancel Book" + event.book_status, event_book_path(event.id, b.id), method: 'delete', class: "btn btn-warning btn-lg" %>
+          <% else %>
+            <%= link_to "Book" + event.book_status, event_books_path(event.id), method: 'post', class: "btn btn-success btn-lg" %>
+          <% end %>
+        </div>
+        <div class="pull-right">
+          <% if own_event(event) %>
+            <%= link_to "Edit", edit_event_path(event.id), class: "btn btn-lg btn-info" %>
+            <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target=<%= "#del_confirm_" + event.id.to_s %>>
+              Delete
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal fade" id=<%= "del_confirm_" + event.id.to_s %> tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Are you ABSOLUTELY sure?</h4>
+          </div>
+          <div class="modal-body">
+            <div class="alert alert-warning" role="alert">
+              <strong>Warning!</strong>
+              Irretrievable deletion will happen if you do this!
+            </div>
+            Are you sure to delete <strong><%= event.name %></strong> forever?
+            All bookings will be canceled together.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <%= link_to "Delete", event_path(event.id), method: 'delete', class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

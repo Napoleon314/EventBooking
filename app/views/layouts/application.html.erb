@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= yield :title %> | EventsBooking</title>
+    
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to "EventsBooking", root_path, class: "navbar-brand" %>
+        </div>
+
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li <%= active_class(params, 'static_pages', 'home') %>>
+              <%= link_to "Home", home_path %>
+            </li>
+
+            <li <%= active_class(params, 'static_pages', 'about') %>>
+              <%= link_to "About", about_path %>
+            </li>
+            
+            <li <%= active_class(params, 'events', 'index') %>>
+              <%= link_to "Events", events_path %>
+            </li>
+
+            <% if current_user %>
+              <li <%= active_class(params, 'events', 'new') %>>
+                <%= link_to "Create", new_event_path %>
+              </li>
+              <li <%= active_class(params, 'events', 'owned') %>>
+                <%= link_to "Launched", owned_events_path %>
+              </li>
+              <li <%= active_class(params, 'events', 'booked') %>>
+                <%= link_to "Booked", booked_events_path %>
+              </li>
+            <% end %>
+          </ul>
+          
+          <% if current_user %>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <%= current_user.title_name %>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><p class="signed-in-as">Signed in as</p></li>
+                  <li><strong class="signed-in-name"><%= current_user.full_name %></strong></li>
+                  <li role="separator" class="divider"></li>
+                  
+                  <li><%= link_to "Create an event", new_event_path %></li>
+                  <li><%= link_to "Launched events", owned_events_path %></li>
+                  <li><%= link_to "Booked events", booked_events_path %></li>
+                  <li role="separator" class="divider"></li>
+                  
+                  <li><%= link_to "Your profile", profile_path %></li>
+                  <li><%= link_to "Sign out", session_path, method: 'delete' %></li>
+                </ul>
+              </li>
+            </ul>
+          <% else %>
+            <p class="navbar-text navbar-right">
+              <a href="/signin" class="navbar-link">Sign in</a>
+              <span class="text-gray"> or </span>
+              <a href="/signup" class="navbar-link">Sign up</a>
+            </p>
+          <% end %>
+
+          <!--form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search Events">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form-->
+
+        </div>
+       
+      </div>
+    </nav>
+
+    <div class="navbar navbar-inverse navbar-fixed-bottom"> 
+      <div class="container">
+        <div class="navbar-text pull=left">
+          <p> © UOW 2017.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-body container">
+      <%= yield %>
+
+      <div class="col-xs-12" style="height:100px;"></div>
+    </div>
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- dialog body -->
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            Hello world!
+          </div>
+          <!-- dialog buttons -->
+          <div class="modal-footer"><button type="button" class="btn btn-primary">OK</button></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
