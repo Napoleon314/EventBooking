@@ -30,7 +30,11 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Event.order(:date)
+    if params[:q]
+      @events = Event.where("name LIKE '%" + params[:q] + "%'")
+    else
+      @events = Event.order(:date)
+    end
   end
 
   def show

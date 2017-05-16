@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def active_class(p, ctl, act)
-    if p[:controller] == ctl && p[:action] == act
+    if p[:controller] == ctl && p[:action] == act && p[:q] == nil
       'class=active'
     else
       ''

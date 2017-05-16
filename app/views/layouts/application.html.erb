@@ -79,12 +79,12 @@
             </p>
           <% end %>
 
-          <form class="navbar-form navbar-right">
+          <%= form_tag("/events", class: "navbar-form navbar-right", method: "get") do %>
             <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search Events">
+              <%= text_field_tag :q, params[:q], placeholder: 'Search Events', class: 'form-control' %>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
+            <%= submit_tag("Submit", name: nil, class: 'btn btn-primary') %>
+          <% end %>
 
         </div>
        

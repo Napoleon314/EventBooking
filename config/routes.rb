@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'search/index'
+
   get 'events/index'
 
   get     'index',              to: 'static_pages#index'
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
 
   get     'owned_events',       to: 'events#owned'
   get     'booked_events',      to: 'events#booked'
+
 
   root    'static_pages#index'
 
