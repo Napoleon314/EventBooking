@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   def owned
     user = current_user
     if user
-      @events = user.events
+      @events = user.events.order(:date)
       render :index
     else
       redirect_to home_path
@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   def booked
     user = current_user
     if user
-      @events = user.booked_events
+      @events = user.booked_events.order(:date)
       render :index
     else
       redirect_to home_path
@@ -30,7 +30,7 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all
+    @events = Event.order(:date)
   end
 
   def show

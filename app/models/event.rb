@@ -1,8 +1,8 @@
 class EventValidator < ActiveModel::Validator
   def validate(record)
-    unless record.date >= Date.tomorrow
-      record.errors[:date] << 'Event date need to be in the future.'
-    end
+    # unless record.date >= Date.tomorrow
+    #   record.errors[:date] << 'Event date need to be in the future.'
+    # end
     unless record.from < record.to
       record.errors[:from] << 'Event start time need to be less than end time.'
       record.errors[:to] << 'Event start time need to be less than end time.'
